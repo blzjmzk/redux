@@ -20,6 +20,17 @@ store.dispatch(bugAdded({ description: "Bug 3" }));
 store.dispatch(bugResolved({ id: 1 }));
 store.dispatch(bugAssignedToUser({ bugId: 1, userId: 1 }));
 
+store.dispatch({
+  type: "apiCallBegan",
+  payload: {
+    url: "/bugs",
+    // method: "get", by default jest get
+    // data: {},
+    onSuccess: "bugsReceived",
+    onError: "apiRequestFailed",
+  },
+});
+
 const unresolvedBugs = getUnresolvedBugs(store.getState()); //aktualny stan store
 console.log(unresolvedBugs);
 
